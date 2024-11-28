@@ -1,15 +1,26 @@
-package org.example.entity;
+package aston.group86.hospitalboot.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
+import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.proxy.HibernateProxy;
 
 /**
  * Класс, представляющий сущность болезни в системе.
@@ -32,11 +43,11 @@ import lombok.ToString;
 @Setter
 @Entity
 @Table(name = "sick")
-public class Sick {
+public class Sick implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "sick_id")
-    private int id;
+    private Long id;
 
     @Column(name = "sick_name")
     private String sickName;
@@ -44,9 +55,10 @@ public class Sick {
     @Column(name = "stage_sick")
     private String stageSick;
 
-    @ManyToMany(mappedBy = "sicks", cascade = CascadeType.DETACH)
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "sicks", cascade = {CascadeType.DETACH,
+        CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JsonIgnoreProperties("sicks")
-    @ToString.Exclude
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE) // Кэшируем коллекцию
     private List<Client> clients;
 
     public Sick(String sickName, String stageSick) {
@@ -55,19 +67,29 @@ public class Sick {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public final boolean equals(Object o) {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (o == null) {
+            return false;
+        }
+        Class<?> oEffectiveClass =
+            o instanceof HibernateProxy proxy ? proxy.getHibernateLazyInitializer()
+                .getPersistentClass() : o.getClass();
+        Class<?> thisEffectiveClass =
+            this instanceof HibernateProxy proxy ? proxy.getHibernateLazyInitializer()
+                .getPersistentClass() : this.getClass();
+        if (thisEffectiveClass != oEffectiveClass) {
             return false;
         }
         Sick sick = (Sick) o;
-        return id == sick.id;
+        return getId() != null && Objects.equals(getId(), sick.getId());
     }
 
     @Override
-    public int hashCode() {
-        return id == 0 ? System.identityHashCode(this) : Objects.hashCode(id);
+    public final int hashCode() {
+        return this instanceof HibernateProxy proxy ? proxy.getHibernateLazyInitializer()
+            .getPersistentClass().hashCode() : getClass().hashCode();
     }
 }
