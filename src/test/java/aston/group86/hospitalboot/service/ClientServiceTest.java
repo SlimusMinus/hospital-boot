@@ -27,6 +27,7 @@ import org.springframework.http.ResponseEntity;
 
 @ExtendWith(MockitoExtension.class)
 @DisplayName("Тестирование ClientService")
+
 class ClientServiceTest {
 
   @Mock
