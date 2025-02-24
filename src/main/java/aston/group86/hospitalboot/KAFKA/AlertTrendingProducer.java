@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
-import org.apache.kafka.clients.producer.RecordMetadata;
 
 @Slf4j
 public class AlertTrendingProducer {
@@ -16,12 +15,12 @@ public class AlertTrendingProducer {
     kaProperties.put("bootstrap.servers", "localhost:9092, localhost:9093, localhost:9094");
     kaProperties.put("key.serializer", AlertKeySerde.class.getName());
     kaProperties.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+    kaProperties.put("partinioner.class", AlertLevelPartitioner.class.getName());
 
     try (Producer<Alert, String> producer = new KafkaProducer<>(kaProperties)) {
-      Alert alert = new Alert(0, "Stage 0", "CRITICAL", "Stage 0 stopped");
+      Alert alert = new Alert(0, "Stage 33", "CRITICAL", "Stage 33 stopped");
       ProducerRecord<Alert, String> producerRecord = new ProducerRecord<>("kinaction_alerttrend", alert, alert.getAlertMessage());
-      RecordMetadata result = producer.send(producerRecord).get();
-      log.info("kinaction_info offset = {}, topic = {}, timestamp = {}", result.offset(), result.topic(), result.timestamp());
+      producer.send(producerRecord, new AlertCallback());
     }
   }
 

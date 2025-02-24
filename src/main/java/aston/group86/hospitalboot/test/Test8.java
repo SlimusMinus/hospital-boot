@@ -9,6 +9,8 @@ import java.util.Map.Entry;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import nonapi.io.github.classgraph.json.JSONUtils;
+import org.w3c.dom.ls.LSOutput;
 
 public class Test8 {
 
@@ -38,14 +40,36 @@ class Student {
         new Student("Frank", 24, 80, "Physics")
     );
 
-    Map<String, Double> collect = students.stream()
-        .filter(student -> student.age > 18)
-        .collect(
-            Collectors.groupingBy(Student::getMajor, Collectors.averagingDouble(Student::getGrade)))
-        .entrySet()
-        .stream().sorted(Entry.<String, Double>comparingByValue().reversed())
-        .collect(
-            Collectors.toMap(Entry::getKey, Entry::getValue, (v1, v2) -> v1, LinkedHashMap::new));
-    System.out.println(collect);
+    /*
+Map<String, Double> collect = students.stream()
+    .filter(student -> student.age > 18)
+    .collect(
+        Collectors.groupingBy(Student::getMajor, Collectors.averagingDouble(Student::getGrade)))
+    .entrySet()
+    .stream().sorted(Entry.<String, Double>comparingByValue().reversed())
+    .collect(
+        Collectors.toMap(Entry::getKey, Entry::getValue, (v1, v2) -> v1, LinkedHashMap::new));
+    System.out.println(collect);*/
+
+
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

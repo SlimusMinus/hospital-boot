@@ -44,6 +44,7 @@ class Order {
         ))
     );
 
+
     orders.stream()
         .collect(Collectors.groupingBy(order -> order.customer.getName(),
             Collectors.flatMapping(order -> order.items.stream()
@@ -53,7 +54,7 @@ class Order {
         .map(Entry::getKey).forEach(System.out::println);
 
 
-   /* Map<String, Double> collect = orders.stream()
+    Map<String, Double> collect = orders.stream()
         .collect(Collectors.groupingBy(order -> order.customer.getName(),
             Collectors.summingDouble(order -> order.items.stream()
                 .mapToDouble(item -> item.getQuantity() * item.getProduct().getPrice()).sum())));
@@ -62,10 +63,11 @@ class Order {
 
     orders.stream()
         .flatMap(order -> order.items.stream())
-        .collect(Collectors.groupingBy(OrderItem::getProduct, Collectors.summingInt(OrderItem::getQuantity))).entrySet()
+        .collect(Collectors.groupingBy(OrderItem::getProduct,
+            Collectors.summingInt(OrderItem::getQuantity))).entrySet()
         .stream().sorted(Entry.comparingByValue(Comparator.reverseOrder()))
         .limit(3)
-        .map(Entry::getKey).forEach(System.out::println);*/
+        .map(Entry::getKey).forEach(System.out::println);
 
   }
 }

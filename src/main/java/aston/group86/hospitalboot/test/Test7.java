@@ -29,10 +29,11 @@ class Client {
     //Найти самого возрастного клиента, которой пользуется стационарным телефоном
     List<Client> list = List.of(firstClient, secondClient, thirdClient);
 
-    list.stream()
+    /*list.stream()
         .filter(client -> client.phones.stream()
             .anyMatch(phone -> phone.type.equals(Phone.PhoneType.STATIONARY)))
-        .max(Comparator.comparing(Client::getAge)).ifPresent(System.out::println);
+    .max(Comparator.comparing(Client::getAge)).ifPresent(System.out::println);*/
+
 
   }
 }

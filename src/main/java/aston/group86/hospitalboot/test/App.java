@@ -12,13 +12,18 @@ public class App {
         new Data("11", "3"),
         new Data("11", "4"),
         new Data("33", "1"));
-    System.out.println(findData(dataList));
+    System.out.println(findData2(dataList));
 //Задача: Реализовать метод, который сравнит даты и уберет дубликаты по кодам (версии при сравнении не учитываются)
   }
 
-  public static Collection<Data> findData(List<Data> data) {
-    Map<String, Data> collect = data.stream()
-        .collect(Collectors.toMap(Data::getCode, data1 -> data1, (k, k2) -> k));
-    return collect.values();
+
+
+  public static Collection<Data> findData2(List<Data> data){
+    return data.stream()
+        .collect(Collectors.toMap(Data::getCode, obj->obj, (k1, k2)-> k1))
+        .values();
   }
+
+
+
 }

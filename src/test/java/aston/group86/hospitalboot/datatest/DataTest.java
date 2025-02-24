@@ -13,4 +13,5 @@ public class DataTest {
     public static final ClientDTO CLIENT_DTO = new ClientDTO("John", "Doe", 25);
     public static final DoctorDTO DOCTOR_DTO = new DoctorDTO("John", "Doe", 54, "Cardiologist");
     public static final Sick SICK_1 = new Sick("Flu", "First");
+    public static final int BROKER_NUMBER = 3;
 }

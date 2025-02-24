@@ -1,0 +1,3 @@
+{
+  "schema": "{\"type\":\"record\",\"name\":\"Alert2\",\"namespace\":\"com.example\",\"fields\":[{\"name\":\"sensorId\",\"type\":\"long\"},{\"name\":\"time\",\"type\":\"long\"},{\"name\":\"status\",\"type\":\"string\"}]}"
+}

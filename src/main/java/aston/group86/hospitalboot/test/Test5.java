@@ -14,6 +14,7 @@ public class Test5 {
 
 @Data
 class Sale {
+
   String productName;
   String category;
   double price;
@@ -33,7 +34,6 @@ class Sale {
   public double getTotalSale() {
     return price * quantity;
   }
-
 
 
   //
@@ -56,7 +56,7 @@ class Sale {
         new Sale("Notebook", "Stationery", 2, 50)
     );
 
-    sales.stream()
+   sales.stream()
         .collect(Collectors.groupingBy(Sale::getCategory, Collectors.summingDouble(sale-> sale.price*sale.quantity)))
         .entrySet()
         .stream().filter(sale->sale.getValue() > 100)
@@ -69,3 +69,16 @@ class Sale {
 
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -4,17 +4,19 @@ package aston.group86.hospitalboot.KAFKA;
 import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class Alert implements Serializable {
 
-  private final int alertId;
+  private int alertId;
   private String stageId;
-  private final String alertLevel;
-  private final String alertMessage;
+  private String alertLevel;
+  private String alertMessage;
 }
 
 

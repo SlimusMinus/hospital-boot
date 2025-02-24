@@ -7,7 +7,18 @@ import java.util.stream.Collectors;
 public class Test12 {
 
   public static void main(String[] args) {
+    List<String> products = List.of(
+        "bacon avocado carrot banana",
+        "butter bacon milk",
+        "avocado carrot eggs"
+    );
 
+    String collect = products.stream()
+        .flatMap(word -> Arrays.stream(word.split(" ")))
+        .distinct()
+        .collect(Collectors.joining(","));
+
+    System.out.println(collect);
   }
 
   /*
@@ -19,9 +30,10 @@ public class Test12 {
       "avocado carrot eggs"
   );
 
+
   public static String getUniqueProducts(List<String> products) {
-   return products.stream()
-        .flatMap(product-> Arrays.stream(product.split(" ")))
+    return products.stream()
+        .flatMap(product -> Arrays.stream(product.split(" ")))
         .distinct()
         .collect(Collectors.joining(","));
   }

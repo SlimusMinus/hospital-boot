@@ -6,12 +6,14 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.ToString.Exclude;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.proxy.HibernateProxy;
 
@@ -36,6 +38,7 @@ import org.hibernate.proxy.HibernateProxy;
 @Getter
 @Setter
 @Entity
+@Data
 @Table(name = "client")
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE) // Кэшируем сущность
 public class Client implements Serializable {
