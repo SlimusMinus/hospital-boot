@@ -1,13 +1,20 @@
-package org.example.controller;
+package aston.group86.hospitalboot.controller;
 
+import aston.group86.hospitalboot.service.ClientService;
+import aston.group86.hospitalboot.service.dto.ClientDTO;
+import java.util.List;
 import lombok.AllArgsConstructor;
-import org.example.service.ClientService;
-import org.example.service.dto.ClientDTO;
+
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Контроллер для управления клиентами.
@@ -38,7 +45,7 @@ public class ClientController {
      * @return клиент в виде {@link ResponseEntity} с объектом {@link ClientDTO}.
      */
     @GetMapping("/{id}")
-    public ResponseEntity<ClientDTO> findById(@PathVariable int id) {
+    public ResponseEntity<ClientDTO> findById(@PathVariable Long id) {
         return service.findById(id);
     }
 
@@ -70,7 +77,7 @@ public class ClientController {
      * @param id идентификатор клиента.
      * @return пустой ответ в виде {@link ResponseEntity<Void>}.
      */
-    @DeleteMapping("{/id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable int id) {
         return service.deleteById(id);
     }
